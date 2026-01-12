@@ -1,0 +1,21 @@
+services:
+  claude-code-router:
+    build: .
+    container_name: claude-code-router
+    restart: unless-stopped
+    ports:
+      - "3000:3456"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-your_gemini_key_here}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-your_deepseek_key_here}
+      - http_proxy=http://xray:10809
+      - https_proxy=http://xray:10809
+      - no_proxy=localhost,127.0.0.1,xray
+    volumes:
+      - ./config.json:/root/.claude-code-router/config.json
+    networks:
+      - mnt_default
+
+networks:
+  mnt_default:
+    external: true
