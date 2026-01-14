@@ -45,8 +45,9 @@ COPY --from=builder /app/packages/ui/dist ./packages/server/dist
 # 复制 PM2 配置
 COPY packages/server/ecosystem.config.cjs ./
 
-# 创建日志目录
-RUN mkdir -p /root/.claude-code-router/logs
+# 创建日志目录和Claude项目目录
+RUN mkdir -p /root/.claude-code-router/logs && \
+    mkdir -p /root/.claude/projects
 
 EXPOSE 3456
 
